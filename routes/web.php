@@ -47,6 +47,9 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin-dashboard');
         Route::resource('category', '\App\Http\Controllers\Admin\CategoryController');
+        Route::resource('user',  '\App\Http\Controllers\Admin\UserController');
+        Route::resource('product',  '\App\Http\Controllers\Admin\ProductController');
+        Route::resource('product-gallery',  '\App\Http\Controllers\Admin\ProductGalleryController');
     });
 
 
