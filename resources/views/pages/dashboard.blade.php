@@ -23,7 +23,7 @@
                                     Customer
                                 </div>
                                 <div class="dashboard-card-subtitle">
-                                    15,289
+                                    {{ number_format($customer) }}
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                     Revenue
                                 </div>
                                 <div class="dashboard-card-subtitle">
-                                    $931,290
+                                    Rp. {{ number_format($revenue) }}
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                     Transaction
                                 </div>
                                 <div class="dashboard-card-subtitle">
-                                    22,409,399
+                                    Rp. {{ number_format($transactions_count) }}
                                 </div>
                             </div>
                         </div>
@@ -56,69 +56,31 @@
                 <div class="row mt-3">
                     <div class="col-12 mt-2">
                         <h5 class="mb-3">Recent Transaction</h5>
-                        <a href="/dashboard-transactions-detail.html" class="card card-list d-block">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <img src="images/dashboard-icon-product-1.png" alt="">
-                                    </div>
-                                    <div class="col-md-4">
-                                        Shirup Marzzan
-                                    </div>
-                                    <div class="col-md-3">
-                                        Angga Risky
-                                    </div>
-                                    <div class="col-md-3">
-                                        12 January, 2022
-                                    </div>
-                                    <div class="col-md-1 d-none d-md-block">
-                                        <img src="/images/dashboard-arrow-right.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="/dashboard-transactions-detail.html" class="card card-list d-block">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <img src="images/dashboard-icon-product-2.png" alt="">
-                                    </div>
-                                    <div class="col-md-4">
-                                        LeBrone X
-                                    </div>
-                                    <div class="col-md-3">
-                                        Masayoshi
-                                    </div>
-                                    <div class="col-md-3">
-                                        11 January, 2022
-                                    </div>
-                                    <div class="col-md-1 d-none d-md-block">
-                                        <img src="/images/dashboard-arrow-right.svg" alt="">
+                        @foreach ($transactions_data as $transaction)
+                            <a href="{{ route('dashboard-transaction-details', $transaction->id) }}"
+                                class="card card-list d-block">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <img src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}"
+                                                alt="..." class="w-100">
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ $transaction->product->name ?? '' }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ $transaction->product->user->store_name ?? '' }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ Carbon\Carbon::parse($transaction->created_at)->format('d F Y') ?? '' }}
+                                        </div>
+                                        <div class="col-md-1 d-none d-md-block">
+                                            <img src="/images/dashboard-arrow-right.svg" alt="">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <a href="/dashboard-transactions-detail.html" class="card card-list d-block">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <img src="images/dashboard-icon-product-3.png" alt="">
-                                    </div>
-                                    <div class="col-md-4">
-                                        Soffa Lembutte
-                                    </div>
-                                    <div class="col-md-3">
-                                        Shayna
-                                    </div>
-                                    <div class="col-md-3">
-                                        11 January, 2022
-                                    </div>
-                                    <div class="col-md-1 d-none d-md-block">
-                                        <img src="/images/dashboard-arrow-right.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -30,4 +30,9 @@ class Transaction extends Model
      * @var array<int, string>
      */
     protected $hidden = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
 }
